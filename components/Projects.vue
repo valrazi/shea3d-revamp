@@ -15,8 +15,8 @@ const projects = [
 <template>
     <div class="w-full min-h-svh p-4 bg-black">
         <h1 class="text-white text-center text-2xl uppercase font-bold">Projects</h1>
-        <div class="w-full min-h-svh p-4 flex flex-col gap-y-4 justify-center items-center bg-black lg:flex-row lg:flex-wrap">
-            <img :src="img" alt="" class="w-[200px]" v-for="img in projects">
+        <div class="w-full min-h-svh p-4 flex flex-col gap-4 justify-center items-center bg-black lg:flex-row lg:flex-wrap">
+            <img :src="img" alt="" class="min-w-[200px] max-h-[200px]" v-for="img in projects">
         </div>
     </div>
 </template>
