@@ -36,8 +36,8 @@ const timelineList = [
             name: 'LMN Pictures',
             location: 'Jakarta, Indonesia'
         },
-        role: 'Senior FX Artist / TD',
-        projects: ['Keluang Man', 'The Siege at Thorn High', 'Muromachi Burai (室町無頼)', 'Kabut Berduri', 'Nightmare & Daydreams', 'LEMBAYUNG', 'Siksa Kubur', 'LEGO DREAMZzz Night of The Never Witch', 'Moving']
+        role: 'FX TD',
+        projects: ['The Siege at Thorn High', 'Muromachi Burai (室町無頼)', 'Kabut Berduri', 'Nightmare & Daydreams', 'LEMBAYUNG', 'Siksa Kubur', 'LEGO DREAMZzz Night of The Never Witch', 'Moving']
     },
 
     {
