@@ -81,6 +81,51 @@ const filteredProjects = computed(() => {
 })
 
 const scrollContainer = ref<HTMLElement | null>(null)
+const sectionRef = ref<HTMLElement | null>(null)
+const isVisible = ref(false)
+
+let observer: IntersectionObserver
+
+const observerOptions = {
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.1
+}
+
+onMounted(() => {
+    observer = new IntersectionObserver(([entry]) => {
+        isVisible.value = entry.isIntersecting;
+    }, observerOptions);
+
+    if (sectionRef.value) {
+        observer.observe(sectionRef.value);
+    }
+
+    // Existing project cards observer setup
+    const projectObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            const projectId = parseInt(entry.target.getAttribute('data-project-id') || '0')
+            if (entry.isIntersecting) {
+                visibleProjects.value.add(projectId)
+            } else {
+                visibleProjects.value.delete(projectId)
+            }
+        })
+    }, {
+        root: scrollContainer.value,
+        threshold: 0.3
+    })
+
+    // Observe each project card
+    const projectElements = document.querySelectorAll('.project-card')
+    projectElements.forEach(el => projectObserver.observe(el))
+})
+
+onUnmounted(() => {
+    if (observer) {
+        observer.disconnect();
+    }
+});
 
 // Add loading state management
 const loadedImages = ref(new Set<number>())
@@ -98,10 +143,12 @@ const scroll = (direction: 'left' | 'right') => {
         behavior: 'smooth'
     })
 }
+
+const visibleProjects = ref(new Set<number>())
 </script>
 
 <template>
-    <div class="w-full bg-black">
+    <div class="w-full bg-black" id="works" ref="sectionRef" :class="{ 'fade-in': isVisible, 'fade-out': !isVisible }">
         <div class="w-full mx-auto px-4 py-16 max-w-[1920px]">
             <h2 class="text-5xl font-bold tracking-wider mb-8 text-center text-white transform hover:scale-105 transition-transform duration-300" 
                 style="text-shadow: 0 4px 8px rgba(0, 0, 0, 0.4)">
@@ -116,6 +163,7 @@ const scroll = (direction: 'left' | 'right') => {
                     :key="platform"
                     @click="selectedplatform = platform"
                     :class="[
+
                         'px-8 py-3 transition-all duration-300 text-base tracking-wide relative overflow-hidden',
                         selectedplatform === platform 
                             ? 'text-green-400 font-medium' 
@@ -132,17 +180,11 @@ const scroll = (direction: 'left' | 'right') => {
             </div>
 
             <!-- Project Grid with Horizontal Scroll -->
-            <div class="relative group">
-                <!-- Gradient Fades -->
-                <div class="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-black to-transparent pointer-events-none z-10 
-                            opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <div class="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-black to-transparent pointer-events-none z-10 
-                            opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-
+            <div class="relative group px-24">
                 <!-- Scroll Buttons -->
                 <button 
                     @click="scroll('left')"
-                    class="absolute left-12 top-1/2 -translate-y-1/2 z-20 bg-black/90 text-white p-4 rounded-full 
+                    class="absolute left-28 top-1/2 -translate-y-1/2 z-20 bg-black/90 text-white p-4 rounded-full 
                            opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-green-500 
                            transform hover:scale-110 shadow-xl"
                 >
@@ -153,7 +195,7 @@ const scroll = (direction: 'left' | 'right') => {
 
                 <button 
                     @click="scroll('right')"
-                    class="absolute right-12 top-1/2 -translate-y-1/2 z-20 bg-black/90 text-white p-4 rounded-full 
+                    class="absolute right-28 top-1/2 -translate-y-1/2 z-20 bg-black/90 text-white p-4 rounded-full 
                            opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-green-500 
                            transform hover:scale-110 shadow-xl"
                 >
@@ -165,12 +207,13 @@ const scroll = (direction: 'left' | 'right') => {
                 <!-- Scrollable Container -->
                 <div 
                     ref="scrollContainer"
-                    class="flex overflow-x-auto scrollbar-hide gap-8 px-12 snap-x snap-mandatory"
+                    class="flex overflow-x-auto scrollbar-hide gap-8 px-0 snap-x snap-mandatory"
                 >
                     <div 
                         v-for="project in filteredProjects" 
                         :key="project.id" 
-                        class="flex-none w-[300px] snap-start transform transition-all duration-500 hover:-translate-y-2"
+                        :data-project-id="project.id"
+                        class="project-card flex-none w-[300px] snap-start transform transition-all duration-500 hover:-translate-y-2"
                     >
                         <div class="relative overflow-hidden rounded-lg shadow-2xl mb-4 bg-gray-900">
                             <!-- Loading Placeholder -->
@@ -179,6 +222,7 @@ const scroll = (direction: 'left' | 'right') => {
                                 class="absolute inset-0 bg-gray-800 animate-pulse"
                             ></div>
                             
+
                             <!-- Poster Image -->
                             <div class="aspect-[2/3] relative overflow-hidden cursor-pointer">
                                 <img 
@@ -234,5 +278,17 @@ const scroll = (direction: 'left' | 'right') => {
 /* Add smooth transition for image loading */
 img {
     transition: opacity 0.3s ease-in-out;
+}
+
+.fade-in {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+}
+
+.fade-out {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
 }
 </style>

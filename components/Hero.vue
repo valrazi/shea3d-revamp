@@ -1,7 +1,7 @@
 <template>
     <section class="relative w-full h-screen flex justify-center bg-black text-white overflow-hidden">
         <div class="absolute inset-0">
-            <video autoplay loop muted playsinline class="w-full h-full object-cover">
+            <video autoplay loop muted playsinline controlslist="nodownload" disablePictureInPicture oncontextmenu="return false" class="w-full h-full object-cover">
                 <source src="/static/video/ocean.mp4" type="video/mp4" />
             </video>
             <div class="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black opacity-80"></div>

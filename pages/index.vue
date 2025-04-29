@@ -8,5 +8,6 @@ import Navbar from '@/components/Navbar.vue';
     <About/>
     <Timeline/>
     <Projects/>
+    <Contact/>
 </template>
 

@@ -2,23 +2,41 @@
     <nav class="fixed top-0 left-0 right-0 px-8 py-6 text-white z-[999]">
         <ul class="flex items-center justify-end gap-8 text-sm font-light">
             <li>
-                <NuxtLink to="/about" class="font-medium uppercase tracking-wider hover:text-green-500 transition-colors duration-300">
+                <a href="#" @click.prevent="scrollToTop" class="font-medium uppercase tracking-wider hover:text-green-500 transition-colors duration-300">
+                    Home
+                </a>
+            </li>
+            <li>
+                <a href="#about" @click.prevent="scrollToSection('about')" class="font-medium uppercase tracking-wider hover:text-green-500 transition-colors duration-300">
                     About
-                </NuxtLink>
+                </a>
             </li>
             <li>
-                <NuxtLink to="/projects" class="font-medium uppercase tracking-wider hover:text-green-500 transition-colors duration-300">
+                <a href="#works" @click.prevent="scrollToSection('works')" class="font-medium uppercase tracking-wider hover:text-green-500 transition-colors duration-300">
                     WORKS
-                </NuxtLink>
+                </a>
             </li>
             <li>
-                <NuxtLink to="/contact" class="font-medium uppercase tracking-wider hover:text-green-500 transition-colors duration-300">
+                <a href="#contact" @click.prevent="scrollToSection('contact')" class="font-medium uppercase tracking-wider hover:text-green-500 transition-colors duration-300">
                     Contact
-                </NuxtLink>
+                </a>
             </li>
         </ul>
     </nav>
 </template>
+
+<script setup>
+const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+};
+
+const scrollToSection = (sectionId) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+    }
+};
+</script>
 
 <style scoped>
 nav {
