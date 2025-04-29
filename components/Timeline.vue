@@ -47,7 +47,7 @@ const timelineList = [
             location: 'Jakarta, Indonesia'
         },
         role: 'Junior FX Artist',
-        projects: ['Little Angel : Nursery Rhymes & Kids Songs', 'Johny Walker Blue Label 3D Videotron Ads', 'CIMB NIAGA 3D Videotron Ads', 'Mary', 'Sri Asih (Disney+)', 'Tira And The Nine Dragon (Disney+)', 'Moving (무빙) (Disney+)']
+        projects: ['Little Angel : Nursery Rhymes & Kids Songs', 'Johny Walker Blue Label 3D Videotron Ads', 'CIMB NIAGA 3D Videotron Ads', 'Mary', 'Sri Asih', 'Tira And The Nine Dragon', 'Moving (무빙)']
     },
 
     {
