@@ -1,12 +1,13 @@
 <template>
   <div class="timeline-container" ref="sectionRef" :class="{ 'fade-in': isVisible, 'fade-out': !isVisible }">
     <div class="timeline-header">
-    <h2 class="text-4xl font-bold tracking-widest mb-8 text-center text-white">EXPERIENCES</h2>
+      <h2 class="text-4xl font-bold tracking-widest mb-8 text-center text-white">EXPERIENCES</h2>
       <div class="w-24 h-1 bg-green-400 mx-auto mb-8"></div>
     </div>
     <div class="timeline-wrapper">
       <div class="timeline-line"></div>
-      <div v-for="(item, index) in timelineList" :key="index" class="timeline-item" :class="{ 'right': index % 2 === 0 }">
+      <div v-for="(item, index) in timelineList" :key="index" class="timeline-item"
+        :class="{ 'right': index % 2 === 0 }">
         <div class="timeline-content">
           <div class="timeline-dot"></div>
           <h3 class="time">{{ item.time }}</h3>
@@ -30,35 +31,53 @@
 import { ref, onMounted, onUnmounted } from 'vue';
 
 const timelineList = [
-    {
-        time: '2022 - Present',
-        corporate: {
-            name: 'LMN Pictures',
-            location: 'Jakarta, Indonesia'
-        },
-        role: 'FX TD',
-        projects: ['The Siege at Thorn High', 'Muromachi Burai (室町無頼)', 'Kabut Berduri', 'Nightmare & Daydreams', 'LEMBAYUNG', 'Siksa Kubur', 'LEGO DREAMZzz Night of The Never Witch', 'Moving']
+  {
+    time: '2022 - Present',
+    corporate: {
+      name: 'LMN Pictures',
+      location: 'Jakarta, Indonesia'
     },
+    role: 'FX TD',
+    projects: [
+      'The Siege at Thorn High',
+      'Muromachi Burai (室町無頼)',
+      'Kabut Berduri',
+      'Nightmare & Daydreams',
+      'LEMBAYUNG', 'Siksa Kubur',
+      'LEGO DREAMZzz Night of The Never Witch',
+      'Moving']
+  },
 
-    {
-        time: '2021 - 2022',
-        corporate: {
-            name: 'Lumine Studio',
-            location: 'Jakarta, Indonesia'
-        },
-        role: 'Junior FX Artist',
-        projects: ['Little Angel : Nursery Rhymes & Kids Songs', 'Johny Walker Blue Label 3D Videotron Ads', 'CIMB NIAGA 3D Videotron Ads', 'Mary', 'Sri Asih', 'Tira And The Nine Dragon', 'Moving (무빙)']
+  {
+    time: '2021 - 2022',
+    corporate: {
+      name: 'Lumine Studio',
+      location: 'Jakarta, Indonesia'
     },
+    role: 'Junior FX Artist',
+    projects: [
+      'Little Angel : Nursery Rhymes & Kids Songs',
+      'Johny Walker Blue Label 3D Videotron Ads',
+      'CIMB NIAGA 3D Videotron Ads',
+      'Mary',
+      'Sri Asih',
+      'Tira And The Nine Dragon',
+      'Moving (무빙)']
+  },
 
-    {
-        time: '2018 - 2020 ',
-        corporate: {
-            name: 'RUS ANIMATION STUDIO',
-            location: 'Kudus, Jawa Tengah'
-        },
-        role: 'Intern FX Artist ',
-        projects: ['Little Angel : Nursery Rhymes & Kids Songs', 'Petualangan Olla Ello', 'GooGoo Space Journey', 'Sabda Alam', 'Internal VR Project']
+  {
+    time: '2018 - 2020 ',
+    corporate: {
+      name: 'RUS ANIMATION STUDIO',
+      location: 'Kudus, Jawa Tengah'
     },
+    role: 'Intern FX Artist ',
+    projects: [
+      'Petualangan Olla Ello',
+      'GooGoo Space Journey',
+      'Sabda Alam',
+      'Internal VR Project']
+  },
 
 ]
 
@@ -66,27 +85,27 @@ const sectionRef = ref<HTMLElement | null>(null);
 const isVisible = ref(false);
 
 const observerOptions = {
-    root: null,
-    rootMargin: '0px',
-    threshold: 0.1
+  root: null,
+  rootMargin: '0px',
+  threshold: 0.1
 };
 
 let observer: IntersectionObserver;
 
 onMounted(() => {
-    observer = new IntersectionObserver(([entry]) => {
-        isVisible.value = entry.isIntersecting;
-    }, observerOptions);
+  observer = new IntersectionObserver(([entry]) => {
+    isVisible.value = entry.isIntersecting;
+  }, observerOptions);
 
-    if (sectionRef.value) {
-        observer.observe(sectionRef.value);
-    }
+  if (sectionRef.value) {
+    observer.observe(sectionRef.value);
+  }
 });
 
 onUnmounted(() => {
-    if (observer) {
-        observer.disconnect();
-    }
+  if (observer) {
+    observer.disconnect();
+  }
 });
 </script>
 
@@ -118,12 +137,11 @@ onUnmounted(() => {
   left: 50%;
   width: 2px;
   height: 100%;
-  background: linear-gradient(180deg, 
-    rgba(0, 0, 0, 0) 0%,
-    rgba(74, 222, 128, 1) 15%,
-    rgba(74, 222, 128, 1) 85%,
-    rgba(0, 0, 0, 0) 100%
-  );
+  background: linear-gradient(180deg,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(74, 222, 128, 1) 15%,
+      rgba(74, 222, 128, 1) 85%,
+      rgba(0, 0, 0, 0) 100%);
   transform: translateX(-50%);
 }
 
@@ -224,15 +242,15 @@ onUnmounted(() => {
 }
 
 .fade-in {
-    opacity: 1;
-    transform: translateY(0);
-    transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
 }
 
 .fade-out {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
 }
 
 @keyframes fadeIn {
@@ -240,6 +258,7 @@ onUnmounted(() => {
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -250,7 +269,7 @@ onUnmounted(() => {
   .timeline-line {
     left: 2rem;
   }
-  
+
   .timeline-item {
     width: 100%;
     margin-left: 0 !important;
