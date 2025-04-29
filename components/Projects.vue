@@ -150,97 +150,75 @@ const visibleProjects = ref(new Set<number>())
 <template>
     <div class="w-full bg-black" id="works" ref="sectionRef" :class="{ 'fade-in': isVisible, 'fade-out': !isVisible }">
         <div class="w-full mx-auto px-4 py-16 max-w-[1920px]">
-            <h2 class="text-5xl font-bold tracking-wider mb-8 text-center text-white transform hover:scale-105 transition-transform duration-300" 
+            <h2 class="text-5xl font-bold tracking-wider mb-8 text-center text-white transform hover:scale-105 transition-transform duration-300"
                 style="text-shadow: 0 4px 8px rgba(0, 0, 0, 0.4)">
                 WORKS
             </h2>
             <div class="w-32 h-1 bg-gradient-to-r from-green-500 to-green-300 mx-auto mb-16 rounded-full"></div>
-            
+
             <!-- Platform Filter -->
             <div class="flex flex-wrap justify-center gap-8 mb-16">
-                <button 
-                    v-for="platform in categories" 
-                    :key="platform"
-                    @click="selectedplatform = platform"
-                    :class="[
+                <button v-for="platform in categories" :key="platform" @click="selectedplatform = platform" :class="[
 
-                        'px-8 py-3 transition-all duration-300 text-base tracking-wide relative overflow-hidden',
-                        selectedplatform === platform 
-                            ? 'text-green-400 font-medium' 
-                            : 'text-gray-400 hover:text-white'
-                    ]"
-                >
+                    'px-8 py-3 transition-all duration-300 text-base tracking-wide relative overflow-hidden',
+                    selectedplatform === platform
+                        ? 'text-green-400 font-medium'
+                        : 'text-gray-400 hover:text-white'
+                ]">
                     {{ platform }}
-                    <div 
-                        v-if="selectedplatform === platform"
-                        class="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-green-500 to-green-300 
-                               transform origin-left animate-[slideIn_0.3s_ease-out]"
-                    ></div>
+                    <div v-if="selectedplatform === platform" class="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-green-500 to-green-300 
+                               transform origin-left animate-[slideIn_0.3s_ease-out]"></div>
                 </button>
             </div>
 
             <!-- Project Grid with Horizontal Scroll -->
-            <div class="relative group px-24">
+            <div class="relative group">
                 <!-- Scroll Buttons -->
-                <button 
-                    @click="scroll('left')"
-                    class="absolute left-28 top-1/2 -translate-y-1/2 z-20 bg-black/90 text-white p-4 rounded-full 
+                <button @click="scroll('left')" class="absolute left-0 top-1/2 -translate-y-1/2 z-20 bg-black/90 text-white p-4 rounded-full 
                            opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-green-500 
-                           transform hover:scale-110 shadow-xl"
-                >
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                           transform hover:scale-110 shadow-xl">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
                     </svg>
                 </button>
 
-                <button 
-                    @click="scroll('right')"
-                    class="absolute right-28 top-1/2 -translate-y-1/2 z-20 bg-black/90 text-white p-4 rounded-full 
+                <button @click="scroll('right')" class="absolute right-0 top-1/2 -translate-y-1/2 z-20 bg-black/90 text-white p-4 rounded-full 
                            opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-green-500 
-                           transform hover:scale-110 shadow-xl"
-                >
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                           transform hover:scale-110 shadow-xl">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                     </svg>
                 </button>
 
                 <!-- Scrollable Container -->
-                <div 
-                    ref="scrollContainer"
-                    class="flex overflow-x-auto scrollbar-hide gap-8 px-0 snap-x snap-mandatory"
-                >
-                    <div 
-                        v-for="project in filteredProjects" 
-                        :key="project.id" 
-                        :data-project-id="project.id"
-                        class="project-card flex-none w-[300px] snap-start transform transition-all duration-500 hover:-translate-y-2"
-                    >
+                <div ref="scrollContainer"
+                    class="flex overflow-x-auto scrollbar-hide gap-4 md:gap-8 px-12 snap-x snap-mandatory">
+                    <div v-for="project in filteredProjects" :key="project.id" :data-project-id="project.id"
+                        class="project-card flex-none w-[240px] sm:w-[280px] md:w-[300px] snap-start transform transition-all duration-500 hover:-translate-y-2">
                         <div class="relative overflow-hidden rounded-lg shadow-2xl mb-4 bg-gray-900">
                             <!-- Loading Placeholder -->
-                            <div 
-                                v-show="!loadedImages.has(project.id)"
-                                class="absolute inset-0 bg-gray-800 animate-pulse"
-                            ></div>
-                            
+                            <div v-show="!loadedImages.has(project.id)"
+                                class="absolute inset-0 bg-gray-800 animate-pulse"></div>
+
 
                             <!-- Poster Image -->
                             <div class="aspect-[2/3] relative overflow-hidden cursor-pointer">
-                                <img 
-                                    :src="project.image" 
-                                    :alt="project.title" 
-                                    @load="handleImageLoad(project.id)"
-                                    class="w-full h-full object-cover transition-all duration-700 
+                                <img :src="project.image" :alt="project.title" @load="handleImageLoad(project.id)"
+                                    class="w-full h-full object-contain md:object-cover transition-all duration-700 
                                            hover:grayscale hover:scale-105 hover:brightness-75"
-                                    :class="{'opacity-0': !loadedImages.has(project.id)}"
-                                    loading="lazy"
-                                >
+                                    :class="{ 'opacity-0': !loadedImages.has(project.id) }" loading="lazy">
                                 <!-- Hover Overlay -->
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent 
                                             opacity-0 hover:opacity-100 transition-opacity duration-500
-                                            flex items-end p-6">
-                                    <div class="transform translate-y-4 hover:translate-y-0 transition-transform duration-300">
-                                        <span class="text-green-400 text-sm font-medium mb-2 block">{{ project.platform }}</span>
-                                        <h3 class="text-white text-xl font-bold">{{ project.title }}</h3>
+                                            flex items-end p-4 md:p-6">
+                                    <div
+                                        class="transform translate-y-4 hover:translate-y-0 transition-transform duration-300">
+                                        <span
+                                            class="text-green-400 text-xs sm:text-sm font-medium mb-1 sm:mb-2 block">{{
+                                                project.platform }}</span>
+                                        <h3 class="text-white text-lg sm:text-xl font-bold">{{ project.title }}</h3>
                                     </div>
                                 </div>
                             </div>
@@ -257,18 +235,31 @@ const visibleProjects = ref(new Set<number>())
     -ms-overflow-style: none;
     scrollbar-width: none;
 }
+
 .scrollbar-hide::-webkit-scrollbar {
     display: none;
 }
 
 @keyframes slideIn {
-    from { transform: scaleX(0); }
-    to { transform: scaleX(1); }
+    from {
+        transform: scaleX(0);
+    }
+
+    to {
+        transform: scaleX(1);
+    }
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .project-enter-active {
