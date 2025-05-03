@@ -69,6 +69,12 @@ const projects: Project[] = [
         title: 'The Siege at Thorn High',
         platform: 'Featured Film',
         image: 'https://res.cloudinary.com/dj2fvefmt/image/upload/v1745940506/auuzgfq0kwo34vsnrcgb.jpg'
+    },
+    {
+        id: 11,
+        title: 'Samar',
+        platform: 'Featured Film',
+        image: 'https://res.cloudinary.com/dj2fvefmt/image/upload/v1746277836/dgftvptnibdlduf1vita.jpg'
     }
 ]
 

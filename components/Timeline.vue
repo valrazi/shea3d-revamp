@@ -45,7 +45,9 @@ const timelineList = [
       'Nightmare & Daydreams',
       'LEMBAYUNG', 'Siksa Kubur',
       'LEGO DREAMZzz Night of The Never Witch',
-      'Moving']
+      'Moving',
+      'SAMAR'
+    ]
   },
 
   {
