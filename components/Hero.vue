@@ -42,7 +42,7 @@
     <!-- Resume PDF Modal -->
     <div v-if="showResume" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-80 p-4">
       <div class="relative w-full max-w-5xl h-[80vh] bg-white rounded-lg overflow-hidden">
-        <iframe src="/public/resume.pdf" class="w-full h-full" frameborder="0"></iframe>
+        <iframe src="/public/resume_2025.pdf" class="w-full h-full" frameborder="0"></iframe>
         <button @click="showResume = false"
           class="absolute top-2 right-2 bg-red-600 text-white rounded-full px-3 py-1 font-bold text-xl hover:bg-red-700 transition">
           ✕
