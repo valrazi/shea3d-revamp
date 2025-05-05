@@ -34,7 +34,7 @@ const timelineList = [
   {
     time: '2022 - Present',
     corporate: {
-      name: 'LMN Pictures',
+      name: 'LMN FX',
       location: 'Jakarta, Indonesia'
     },
     role: 'FX TD',
