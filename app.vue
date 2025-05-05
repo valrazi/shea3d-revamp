@@ -1,11 +1,8 @@
 <template>
   <div>
     <!-- Loading Screen -->
-    <div
-      v-if="isLoading"
-      :class="{ 'fade-out': isFadingOut }"
-      class="fixed inset-0 bg-black flex items-center justify-center z-50 transition-opacity duration-1000"
-    >
+    <div v-if="isLoading" :class="{ 'fade-out': isFadingOut }"
+      class="fixed inset-0 bg-black flex items-center justify-center z-50 transition-opacity duration-1000">
       <div class="flex flex-col items-center">
         <img src="/static/video/loading_spinner.gif" alt="Loading Content..." class="w-40 h-40 mb-4" />
         <div class="text-white text-4xl font-bold animate-pulse">Loading...</div>
@@ -20,7 +17,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { onMounted } from 'vue';
 
 const isLoading = ref(true);
 const isFadingOut = ref(false);
@@ -52,6 +49,7 @@ onMounted(() => {
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -61,6 +59,7 @@ onMounted(() => {
   from {
     background-color: #000;
   }
+
   to {
     background-color: #050505;
   }
