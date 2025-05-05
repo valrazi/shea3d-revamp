@@ -20,18 +20,31 @@
           class="px-8 py-3 bg-green-400 text-black font-medium rounded-lg hover:bg-green-500 transition-colors">
           Demoreel
         </button>
-        <button @click="showResume = true"
+        <a href="https://drive.google.com/file/d/1x7k1ZPQDQHH-UO5-3iNLw4kky34nnw23/view?usp=sharing" target="_blank"
+          rel="noopener noreferrer"
           class="px-8 py-3 bg-green-400 text-black font-medium rounded-lg hover:bg-green-500 transition-colors">
           Resume
-        </button>
+        </a>
+
       </div>
     </div>
 
     <!-- Vimeo Modal -->
     <div v-if="showPlayer" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-80">
       <div class="relative w-full max-w-4xl aspect-video">
+
+        <!-- Loading Spinner -->
+        <div v-if="isVideoLoading"
+          class="absolute inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60">
+          <div class="loader"></div>
+        </div>
+
+
         <iframe src="https://player.vimeo.com/video/1081429318?autoplay=1" class="w-full h-full rounded-lg"
-          frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+          frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen
+          @load="isVideoLoading = false" />
+
+
         <button @click="showPlayer = false"
           class="absolute top-2 right-2 bg-red-600 text-white rounded-full px-3 py-1 font-bold text-xl hover:bg-red-700 transition">
           ✕
@@ -58,8 +71,56 @@ export default {
   data() {
     return {
       showPlayer: false,
-      showResume: false
+      showResume: false,
+      isVideoLoading: false
+    }
+  },
+  watch: {
+    showPlayer(val) {
+      if (val) {
+        this.isVideoLoading = true
+      }
     }
   }
 }
 </script>
+
+<style scoped>
+section {
+  position: relative;
+  overflow: hidden;
+}
+
+video {
+  filter: brightness(0.6);
+}
+
+h1 span {
+  text-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+button {
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Spinner Styles */
+.loader {
+  border: 6px solid #f3f3f3;
+  border-top: 6px solid #38bdf8;
+  /* Sky blue */
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+</style>
