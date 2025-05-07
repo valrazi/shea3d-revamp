@@ -20,7 +20,7 @@
           class="px-8 py-3 bg-green-400 text-black font-medium rounded-lg hover:bg-green-500 transition-colors">
           Demoreel
         </button>
-        <a href="https://drive.google.com/file/d/1x7k1ZPQDQHH-UO5-3iNLw4kky34nnw23/view?usp=sharing" target="_blank"
+        <a href="https://drive.google.com/file/d/1daRv3NC_i0gyDwpTlPB3sXjHqA_V0ejn/view?usp=sharing" target="_blank"
           rel="noopener noreferrer"
           class="px-8 py-3 bg-green-400 text-black font-medium rounded-lg hover:bg-green-500 transition-colors">
           Resume
